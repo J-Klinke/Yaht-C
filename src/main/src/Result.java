@@ -1,8 +1,8 @@
 public abstract class Result {
-    int score;
-    String name;
+    protected String name;
+    protected int score;
 
-    public Result(int score, String name){
+    public Result(int score, String name) {
        this.score = score;
        this.name = name;
     }
