@@ -1,15 +1,15 @@
 import java.util.Random;
 
 public class Die {
-    Value value;
-    int valueAsInt;
+    private Value value;
+    private int valueAsInt;
     private final Random random = new Random();
 
     /**
      * 'rolls' a die: chooses a values randomly and assigns value and valueAsInt.
      */
-    public void rollDie(){
-        int result = random.nextInt(1,7);
+    public void rollDie() {
+        int result = random.nextInt(1, 7);
         value = switch (result) {
             case 1 -> Value.ONE;
             case 2 -> Value.TWO;
@@ -20,5 +20,13 @@ public class Die {
             default -> throw new IllegalStateException("Unexpected value in Die.rollDie(): " + result);
         };
         valueAsInt = result;
+    }
+
+    public Value getValue() {
+        return value;
+    }
+
+    public int getValueAsInt() {
+        return valueAsInt;
     }
 }

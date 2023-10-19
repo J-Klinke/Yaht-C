@@ -120,10 +120,10 @@ public class ResultCalculator {
      * checks if five dice value of a kind exist and adds YAHTZEE to the possible results.
      */
     private void checkForYahtzee() {
-        if (dice[0].valueAsInt == dice[1].valueAsInt
-                && dice[0].valueAsInt == dice[2].valueAsInt
-                && dice[0].valueAsInt == dice[3].valueAsInt
-                && dice[0].valueAsInt == dice[4].valueAsInt) {
+        if (dice[0].getValueAsInt() == dice[1].getValueAsInt()
+                && dice[0].getValueAsInt() == dice[2].getValueAsInt()
+                && dice[0].getValueAsInt() == dice[3].getValueAsInt()
+                && dice[0].getValueAsInt() == dice[4].getValueAsInt()) {
             results.add(new Result.Yahtzee());
         }
     }
