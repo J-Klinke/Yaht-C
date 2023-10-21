@@ -2,6 +2,8 @@ import java.util.ArrayList;
 
 public class ResultCalculator {
 
+    private static final int THREE_OF_A_KIND = 3;
+    private static final int FOUR_OF_A_KIND = 4;
     private final ArrayList<Result> results = new ArrayList<>();
     private final Die[] dice;
     private final ArrayList<Integer> dieValues;
@@ -16,8 +18,8 @@ public class ResultCalculator {
      */
     public void calculateResults() {
         checkForNumbers();
-        checkForThreeOfAKind();
-        checkForFourOfAKind();
+        checkForXOfAKind(THREE_OF_A_KIND);
+        checkForXOfAKind(FOUR_OF_A_KIND);
         checkForFullHouse();
         checkForSmallStraight();
         checkForLargeStraight();
@@ -29,57 +31,52 @@ public class ResultCalculator {
      * checks whether the 'numbers' results (ONES, TWOS, ...) are possible.
      */
     private void checkForNumbers() {
-        if (dieValues.contains(1)) {
-            results.add(new Result.Ones(calculateUpperPartScores(1)));
+        if (dieValues.contains(Value.ONE.asInt())) {
+            results.add(new Result.Ones(
+                    calculateUpperPartScores(Value.ONE.asInt())));
         }
-        if (dieValues.contains(2)) {
-            results.add(new Result.Twos(calculateUpperPartScores(2)));
+        if (dieValues.contains(Value.TWO.asInt())) {
+            results.add(new Result.Twos(
+                    calculateUpperPartScores(Value.TWO.asInt())));
         }
-        if (dieValues.contains(3)) {
-            results.add(new Result.Threes(calculateUpperPartScores(3)));
+        if (dieValues.contains(Value.THREE.asInt())) {
+            results.add(new Result.Threes(
+                    calculateUpperPartScores(Value.THREE.asInt())));
         }
-        if (dieValues.contains(4)) {
-            results.add(new Result.Fours(calculateUpperPartScores(4)));
+        if (dieValues.contains(Value.FOUR.asInt())) {
+            results.add(new Result.Fours(
+                    calculateUpperPartScores(Value.FOUR.asInt())));
         }
-        if (dieValues.contains(5)) {
-            results.add(new Result.Fives(calculateUpperPartScores(5)));
+        if (dieValues.contains(Value.FIVE.asInt())) {
+            results.add(new Result.Fives(
+                    calculateUpperPartScores(Value.FIVE.asInt())));
         }
-        if (dieValues.contains(6)) {
-            results.add(new Result.Sixes(calculateUpperPartScores(6)));
+        if (dieValues.contains(Value.SIX.asInt())) {
+            results.add(new Result.Sixes(
+                    calculateUpperPartScores(Value.SIX.asInt())));
         }
     }
 
     /**
-     * checks whether if there are at least three dice with the same value.
+     * checks whether if there are at least x with the same value.
+     * @param x the amount of necessary dice of a kind
      */
-    private void checkForThreeOfAKind() {
-        for (int i = 1; i < 7; i++) {
+    private void checkForXOfAKind(int x) {
+        for (int i = 0; i < Value.values().length; i++) {
             int count = 0;
             for (int diceValue : dieValues) {
                 if (diceValue == i) {
                     count++;
                 }
             }
-            if (count >= 3) {
+            if (count >= x) {
+                switch (x) {
+                    case THREE_OF_A_KIND -> results.add(
+                            new Result.ThreeOfAKind(countAllDice()));
+                    case FOUR_OF_A_KIND -> results.add(
+                            new Result.FourOfAKind(countAllDice()));
+                }
                 results.add(new Result.ThreeOfAKind(countAllDice()));
-                return;
-            }
-        }
-    }
-
-    /**
-     * checks whether if there are at least four dice with the same value.
-     */
-    private void checkForFourOfAKind() {
-        for (int i = 1; i < 7; i++) {
-            int count = 0;
-            for (int diceValue : dieValues) {
-                if (diceValue == i) {
-                    count++;
-                }
-            }
-            if (count >= 4) {
-                results.add(new Result.FourOfAKind(countAllDice()));
                 return;
             }
         }
@@ -89,9 +86,14 @@ public class ResultCalculator {
      * checks whether there are 2 dice of one value and three of another.
      */
     private void checkForFullHouse() {
+        final int firstFullHouseAmount = 2;
+        final int secondFullHouseAmount = 3;
+
         int firstDiceValue = dieValues.get(0);
         int firstDiceValueCount = countInstancesOfValue(firstDiceValue);
-        if (firstDiceValueCount == 3 || firstDiceValueCount == 2) {
+
+        if (firstDiceValueCount == firstFullHouseAmount
+                || firstDiceValueCount == secondFullHouseAmount) {
             int secondDiceValue = 0;
             for (int diceValue : dieValues) {
                 if (diceValue != firstDiceValue) {
@@ -101,12 +103,12 @@ public class ResultCalculator {
             }
 
             int secondDiceValueCount = countInstancesOfValue(secondDiceValue);
-            if (firstDiceValueCount == 2) {
-                if (secondDiceValueCount == 3) {
+            if (firstDiceValueCount == firstFullHouseAmount) {
+                if (secondDiceValueCount == secondFullHouseAmount) {
                     results.add(new Result.FullHouse());
                 }
             } else {
-                if (secondDiceValueCount == 2) {
+                if (secondDiceValueCount == firstFullHouseAmount) {
                     results.add(new Result.FullHouse());
                 }
             }
@@ -117,9 +119,12 @@ public class ResultCalculator {
      * looks for a combination of 1-2-3-4 or 2-3-4-5 or 3,4,5,6.
      */
     private void checkForSmallStraight() {
-        if (dieValues.contains(1) && dieValues.contains(2) && dieValues.contains(3) && dieValues.contains(4)
-                || dieValues.contains(2) && dieValues.contains(3) && dieValues.contains(4) && dieValues.contains(5)
-                || dieValues.contains(3) && dieValues.contains(4) && dieValues.contains(5) && dieValues.contains(6)) {
+        if (dieValues.contains(Value.ONE.asInt()) && dieValues.contains(Value.TWO.asInt())
+                && dieValues.contains(Value.THREE.asInt()) && dieValues.contains(Value.FOUR.asInt())
+                || dieValues.contains(Value.TWO.asInt()) && dieValues.contains(Value.THREE.asInt())
+                && dieValues.contains(Value.FOUR.asInt()) && dieValues.contains(Value.FIVE.asInt())
+                || dieValues.contains(Value.THREE.asInt()) && dieValues.contains(Value.FOUR.asInt())
+                && dieValues.contains(Value.FIVE.asInt()) && dieValues.contains(Value.SIX.asInt())) {
             results.add(new Result.SmallStraight());
         }
     }
@@ -128,23 +133,25 @@ public class ResultCalculator {
      * looks for a combination of 1-2-3-4-5 or 2-3-4-5-6.
      */
     private void checkForLargeStraight() {
-        if (dieValues.contains(1) && dieValues.contains(2) && dieValues.contains(3) && dieValues.contains(4)
-                && dieValues.contains(5)
-                || dieValues.contains(2) && dieValues.contains(3) && dieValues.contains(4)
-                && dieValues.contains(5) && dieValues.contains(6)) {
+        if (dieValues.contains(Value.ONE.asInt()) && dieValues.contains(Value.TWO.asInt())
+                && dieValues.contains(Value.THREE.asInt()) && dieValues.contains(Value.FOUR.asInt())
+                && dieValues.contains(Value.FIVE.asInt())
+                || dieValues.contains(Value.TWO.asInt()) && dieValues.contains(Value.THREE.asInt())
+                && dieValues.contains(Value.FOUR.asInt()) && dieValues.contains(Value.FIVE.asInt())
+                && dieValues.contains(Value.SIX.asInt())) {
             results.add(new Result.LargeStraight());
         }
     }
 
     /**
-     * checks if five dice values of a kind exist.
+     * checks if all five dice in ResultCalculator.dice have the same value.
      */
     private void checkForYahtzee() {
         if (dice[0].getValueAsInt() == dice[1].getValueAsInt()
                 && dice[0].getValueAsInt() == dice[2].getValueAsInt()
                 && dice[0].getValueAsInt() == dice[3].getValueAsInt()
                 && dice[0].getValueAsInt() == dice[4].getValueAsInt()) {
-            results.add(new Result.Yahtzee());
+            results.add(new Result.YahtC());
         }
     }
 

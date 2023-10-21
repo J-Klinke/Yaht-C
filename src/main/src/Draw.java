@@ -13,7 +13,8 @@ public class Draw {
     }
 
     /**
-     * Draw's 'main' method. Rolls the dice, gets the possible results and prints both.
+     * Draw's 'main' method.
+     * Rolls the dice, gets the possible results and prints both.
      */
     public void doDraw() {
         rollDice();
@@ -33,10 +34,11 @@ public class Draw {
     }
 
     /**
-     * calls a ResultCalculator and fills Draw.results with the possible valid results.
+     * calls a ResultCalculator, fills Draw.results with the possible results.
      */
     private void getPossibleResults() {
-        ResultCalculator resultCalculator = new ResultCalculator(dice, dieValuesAsInt);
+        ResultCalculator resultCalculator =
+                new ResultCalculator(dice, dieValuesAsInt);
         resultCalculator.calculateResults();
         results = resultCalculator.getResults();
     }
@@ -52,7 +54,8 @@ public class Draw {
 
     /**
      * creates printout String.
-     * @return a String containing all possible valid results accompanied by their scores
+     * @return a String containing all possible valid results
+     * accompanied by their scores
      */
     private String printResults() {
         StringBuilder stringBuilder = new StringBuilder();
