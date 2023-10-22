@@ -1,10 +1,7 @@
 public class Main {
     public static void main(String[] args) {
-        for (int i = 0; i < 6480; i++) {
-
-            Draw draw = new Draw();
-            draw.doDraw();
-        }
+        Game game = new Game("Player 1", "Player 2");
+        game.playGame();
     }
 
 

@@ -20,8 +20,8 @@ public class Draw {
         rollDice();
         translateDiceValues();
         ArrayList<Result> results = getPossibleResults();
-        System.out.println(dieValuesAsInt);
-        System.out.println(printResults());
+        //System.out.println(dieValuesAsInt);
+        //System.out.println(printResults());
         return results;
     }
 
