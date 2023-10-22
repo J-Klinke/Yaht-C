@@ -16,12 +16,13 @@ public class Draw {
      * Draw's 'main' method.
      * Rolls the dice, gets the possible results and prints both.
      */
-    public void doDraw() {
+    public ArrayList<Result> doDraw() {
         rollDice();
         translateDiceValues();
-        getPossibleResults();
+        ArrayList<Result> results = getPossibleResults();
         System.out.println(dieValuesAsInt);
         System.out.println(printResults());
+        return results;
     }
 
     /**
@@ -36,11 +37,12 @@ public class Draw {
     /**
      * calls a ResultCalculator, fills Draw.results with the possible results.
      */
-    private void getPossibleResults() {
+    private ArrayList<Result> getPossibleResults() {
         ResultCalculator resultCalculator =
                 new ResultCalculator(dice, dieValuesAsInt);
         resultCalculator.calculateResults();
         results = resultCalculator.getResults();
+        return results;
     }
 
     /**

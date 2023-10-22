@@ -1,6 +1,9 @@
+import java.util.ArrayList;
+
 public abstract class Result {
     public final String name;
-    private final int score;
+    private int score;
+    private static final ArrayList<Result> allResults = new ArrayList<>();
 
     public Result(int score, String name) {
        this.score = score;
@@ -107,8 +110,35 @@ public abstract class Result {
 
     }
 
+    private static void fillAllResults() {
+        allResults.add(new Ones(0));
+        allResults.add(new Twos(0));
+        allResults.add(new Threes((0)));
+        allResults.add(new Fours(0));
+        allResults.add(new Fives(0));
+        allResults.add(new Sixes(0));
+        allResults.add(new ThreeOfAKind(0));
+        allResults.add(new FourOfAKind(0));
+        allResults.add(new FullHouse());
+        allResults.add(new SmallStraight());
+        allResults.add(new LargeStraight());
+        allResults.add(new YahtC());
+        allResults.add(new Chance(0));
+    }
+
     public int getScore() {
         return score;
+    }
+
+    public void setScore(int score) {
+        this.score = score;
+    }
+
+    public static ArrayList<Result> getAllResults() {
+        if (allResults.isEmpty()) {
+            fillAllResults();
+        }
+        return allResults;
     }
 }
 
