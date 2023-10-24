@@ -1,3 +1,5 @@
+package yahtc;
+
 import java.util.ArrayList;
 
 public abstract class Result {
@@ -98,7 +100,7 @@ public abstract class Result {
 
         public static final int YAHT_C_SCORE = 50;
         public YahtC() {
-            super(YAHT_C_SCORE, "Yahtzee");
+            super(YAHT_C_SCORE, "Yaht-C");
         }
 
     }

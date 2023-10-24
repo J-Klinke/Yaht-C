@@ -1,3 +1,5 @@
+package yahtc;
+
 import java.util.ArrayList;
 
 public class Draw {
@@ -38,8 +40,7 @@ public class Draw {
      * calls a ResultCalculator, fills Draw.results with the possible results.
      */
     private ArrayList<Result> getPossibleResults() {
-        ResultCalculator resultCalculator =
-                new ResultCalculator(dice, dieValuesAsInt);
+        ResultCalculator resultCalculator = new ResultCalculator(dieValuesAsInt);
         resultCalculator.calculateResults();
         results = resultCalculator.getResults();
         return results;

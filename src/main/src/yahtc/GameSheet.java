@@ -1,3 +1,5 @@
+package yahtc;
+
 public class GameSheet {
     public final Player player;
 

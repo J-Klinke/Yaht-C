@@ -1,3 +1,5 @@
+package yahtc;
+
 public enum Value {
     ONE(1),
     TWO(2),

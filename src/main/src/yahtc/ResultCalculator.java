@@ -1,3 +1,5 @@
+package yahtc;
+
 import java.util.ArrayList;
 
 public class ResultCalculator {
@@ -5,11 +7,9 @@ public class ResultCalculator {
     private static final int THREE_OF_A_KIND = 3;
     private static final int FOUR_OF_A_KIND = 4;
     private final ArrayList<Result> results = new ArrayList<>();
-    private final Die[] dice;
     private final ArrayList<Integer> dieValues;
 
-    public ResultCalculator(Die[] dice, ArrayList<Integer> dieValues) {
-        this.dice = dice;
+    public ResultCalculator(ArrayList<Integer> dieValues) {
         this.dieValues = dieValues;
     }
 
@@ -62,7 +62,7 @@ public class ResultCalculator {
      * @param x the amount of necessary dice of a kind
      */
     private void checkForXOfAKind(int x) {
-        for (int i = 0; i < Value.values().length; i++) {
+        for (int i = 1; i <= Value.values().length; i++) {
             int count = 0;
             for (int diceValue : dieValues) {
                 if (diceValue == i) {
@@ -76,7 +76,6 @@ public class ResultCalculator {
                     case FOUR_OF_A_KIND -> results.add(
                             new Result.FourOfAKind(countAllDice()));
                 }
-                results.add(new Result.ThreeOfAKind(countAllDice()));
                 return;
             }
         }
@@ -147,12 +146,12 @@ public class ResultCalculator {
      * checks if all five dice in ResultCalculator.dice have the same value.
      */
     private void checkForYahtzee() {
-        if (dice[0].getValueAsInt() == dice[1].getValueAsInt()
-                && dice[0].getValueAsInt() == dice[2].getValueAsInt()
-                && dice[0].getValueAsInt() == dice[3].getValueAsInt()
-                && dice[0].getValueAsInt() == dice[4].getValueAsInt()) {
-            results.add(new Result.YahtC());
+        for (int dieValue : dieValues) {
+            if (dieValues.get(0) != dieValue) {
+                return;
+            }
         }
+        results.add(new Result.YahtC());
     }
 
     /**
