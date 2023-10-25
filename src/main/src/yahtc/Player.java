@@ -1,16 +1,18 @@
 package yahtc;
 
 import java.util.ArrayList;
+import java.util.Collections;
 
 public class Player {
     private final GameSheet gameSheet;
     private final String name;
 
-    private final InputHandler inputHandler = new BareBonesInputHandler();
+    private final InputHandler inputHandler;
 
     private final ArrayList<Result> resultsFilled;
 
-    public Player(String name) {
+    public Player(String name, InputHandler inputHandler) {
+        this.inputHandler = inputHandler;
         this.name = name;
         this.gameSheet = new GameSheet(this);
         this.resultsFilled = new ArrayList<>();
@@ -57,6 +59,7 @@ public class Player {
 
         }
         resultsFilled.add(chosenResult);
+        sortResultsFilled();
     }
 
     /**
@@ -65,7 +68,7 @@ public class Player {
      * @return Die[] with the dice not to be rolled again
      */
     private Die[] chooseDiceToFix(Die[] dice) {
-        return inputHandler.diceChooser(dice);
+        return inputHandler.dicePicker(dice);
     }
 
     /**
@@ -111,6 +114,10 @@ public class Player {
             score += result.getScore();
         }
         return score;
+    }
+
+    public void sortResultsFilled() {
+        Collections.sort(resultsFilled); //TODO funktioniert nicht richtig
     }
 
     public ArrayList<Result> getResultsFilled() {

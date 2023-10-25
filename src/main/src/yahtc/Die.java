@@ -7,6 +7,13 @@ public class Die {
     private int valueAsInt;
     private final Random random = new Random();
 
+    public Die(){}
+
+    public Die(Die another) {
+        this.value = another.getValue();
+        this.valueAsInt = another.getValueAsInt();
+    }
+
     /**
      * 'rolls' a die: chooses a values randomly and assigns value and valueAsInt.
      */

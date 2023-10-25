@@ -4,10 +4,9 @@ public class Game {
     private final Player player1;
     private final Player player2;
 
-    public Game(String player1Name, String player2Name) {
-        this.player1 = new Player(player1Name);
-        this.player2 = new Player(player2Name);
-
+    public Game(String player1Name, String player2Name, InputHandler inputHandler) {
+        this.player1 = new Player(player1Name, inputHandler);
+        this.player2 = new Player(player2Name, inputHandler);
     }
 
     /**
