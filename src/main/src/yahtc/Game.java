@@ -15,7 +15,7 @@ public class Game {
      */
     public void playGame() {
         for (int i = 0; i < Result.getAllResults().size(); i++) {
-            System.out.println("Round: " + (i + 1));
+            System.out.println("Round: " + (i + 1)); //TODO OutputHandler
             player1.doDraw();
             player2.doDraw();
         }
@@ -23,7 +23,7 @@ public class Game {
     }
 
     private void printWinner() {
-        System.out.println("Winner is: " + getWinner().getName());
+        System.out.println("Winner is: " + getWinner().getName()); //TODO OutPutHandler
     }
 
     /**
