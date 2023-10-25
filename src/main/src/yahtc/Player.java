@@ -117,7 +117,7 @@ public class Player {
     }
 
     public void sortResultsFilled() {
-        Collections.sort(resultsFilled); //TODO funktioniert nicht richtig
+        Collections.sort(resultsFilled);
     }
 
     public ArrayList<Result> getResultsFilled() {
