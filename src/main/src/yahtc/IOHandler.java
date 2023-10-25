@@ -2,13 +2,13 @@ package yahtc;
 
 import java.util.ArrayList;
 
-public interface InputHandler {
+public interface IOHandler {
 
     /**
      * handles a player's boolean decision.
      * @return the decision
      */
-    boolean yesNoChooser();
+    boolean rollAgain();
 
     /**
      * allows a player to pick dice.
@@ -23,4 +23,19 @@ public interface InputHandler {
      * @return the chosen result
      */
     Result resultChooser(ArrayList<Result> results);
+
+
+    void printGameSheet(Player player);
+
+    void printRound(int round);
+
+    void printWinner(Player winner);
+
+    void printDice(ArrayList<Integer> dieValuesAsInt);
+
+    void printResults(ArrayList<Result> results);
+
+    void printEliminationMessage();
+
+    void rollDice();
 }

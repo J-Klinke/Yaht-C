@@ -6,12 +6,13 @@ public class Draw {
     private static final int NUMBER_OF_DICE = 5;
     private final Die[] dice = new Die[NUMBER_OF_DICE];
     private final ArrayList<Integer> dieValuesAsInt = new ArrayList<>();
-    private ArrayList<Result> results = new ArrayList<>();
+    private final IOHandler ioHandler;
 
-    public Draw() {
+    public Draw(IOHandler ioHandler) {
         for (int i = 0; i < dice.length; i++) {
             dice[i] = new Die();
         }
+        this.ioHandler = ioHandler;
     }
 
     /**
@@ -22,8 +23,8 @@ public class Draw {
         rollDice();
         translateDiceValues();
         ArrayList<Result> results = getPossibleResults();
-        System.out.println(dieValuesAsInt);
-        System.out.println(printResults());
+        ioHandler.printDice(dieValuesAsInt);
+        ioHandler.printResults(results);
         return results;
     }
 
@@ -37,8 +38,8 @@ public class Draw {
         replaceFixedDice(fixedDice);
         translateDiceValues();
         ArrayList<Result> results = getPossibleResults();
-        System.out.println(dieValuesAsInt);
-        System.out.println(printResults());
+        ioHandler.printDice(dieValuesAsInt);
+        ioHandler.printResults(results);
         return results;
     }
 
@@ -46,6 +47,7 @@ public class Draw {
      * rolls all dice in this draw.
      */
     private void rollDice() {
+        ioHandler.rollDice();
         for (Die die : dice) {
             die.rollDie();
         }
@@ -68,8 +70,7 @@ public class Draw {
     private ArrayList<Result> getPossibleResults() {
         ResultCalculator resultCalculator = new ResultCalculator(dieValuesAsInt);
         resultCalculator.calculateResults();
-        results = resultCalculator.getResults();
-        return results;
+        return resultCalculator.getResults();
     }
 
     /**
@@ -82,19 +83,6 @@ public class Draw {
                 dice[i] = fixedDice[i];
             }
         }
-    }
-
-    /**
-     * creates printout String.
-     * @return a String containing all possible valid results
-     * accompanied by their scores
-     */
-    private String printResults() {
-        StringBuilder stringBuilder = new StringBuilder();
-        for (Result result : results) {
-            stringBuilder.append(result.toString());
-        }
-        return stringBuilder.toString();
     }
 
     public Die[] getDice() {

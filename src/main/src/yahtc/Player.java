@@ -7,12 +7,12 @@ public class Player {
     private final GameSheet gameSheet;
     private final String name;
 
-    private final InputHandler inputHandler;
+    private final IOHandler ioHandler;
 
     private final ArrayList<Result> resultsFilled;
 
-    public Player(String name, InputHandler inputHandler) {
-        this.inputHandler = inputHandler;
+    public Player(String name, IOHandler ioHandler) {
+        this.ioHandler = ioHandler;
         this.name = name;
         this.gameSheet = new GameSheet(this);
         this.resultsFilled = new ArrayList<>();
@@ -22,7 +22,8 @@ public class Player {
      * does a whole draw from a player's perspective.
      */
     public void doDraw() {
-        Draw draw = new Draw();
+        ioHandler.printGameSheet(this);
+        Draw draw = new Draw(ioHandler);
         ArrayList<Result> playerResults = draw.doDraw();
         removeExistingResults(playerResults);
         for (int i = 0; i < 2; i++) {
@@ -35,7 +36,7 @@ public class Player {
             }
         }
         chooseResult(playerResults);
-        gameSheet.print();
+        ioHandler.printGameSheet(this);
     }
 
     /**
@@ -43,7 +44,7 @@ public class Player {
      * @return their choice
      */
     private boolean chooseIfRollAgain() {
-        return inputHandler.yesNoChooser();
+        return ioHandler.rollAgain();
     }
 
     /**
@@ -55,7 +56,7 @@ public class Player {
         if (results.isEmpty()) {
             chosenResult = chooseEliminationResult();
         } else {
-            chosenResult = inputHandler.resultChooser(results);
+            chosenResult = ioHandler.resultChooser(results);
         }
         resultsFilled.add(chosenResult);
         sortResultsFilled();
@@ -67,7 +68,7 @@ public class Player {
      * @return Die[] with the dice not to be rolled again
      */
     private Die[] chooseDiceToFix(Die[] dice) {
-        return inputHandler.dicePicker(dice);
+        return ioHandler.dicePicker(dice);
     }
 
     /**
@@ -83,7 +84,8 @@ public class Player {
         for (Result result : eliminableResults) {
             result.setScore(0);
         }
-        chosenResult = inputHandler.resultChooser(eliminableResults);
+        ioHandler.printEliminationMessage();
+        chosenResult = ioHandler.resultChooser(eliminableResults);
         return chosenResult;
     }
 

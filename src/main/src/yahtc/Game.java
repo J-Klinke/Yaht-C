@@ -4,9 +4,12 @@ public class Game {
     private final Player player1;
     private final Player player2;
 
-    public Game(String player1Name, String player2Name, InputHandler inputHandler) {
-        this.player1 = new Player(player1Name, inputHandler);
-        this.player2 = new Player(player2Name, inputHandler);
+    private final IOHandler ioHandler;
+
+    public Game(String player1Name, String player2Name, IOHandler ioHandler) {
+        this.player1 = new Player(player1Name, ioHandler);
+        this.player2 = new Player(player2Name, ioHandler);
+        this.ioHandler = ioHandler;
     }
 
     /**
@@ -14,15 +17,11 @@ public class Game {
      */
     public void playGame() {
         for (int i = 0; i < Result.getAllResults().size(); i++) {
-            System.out.println("Round: " + (i + 1)); //TODO OutputHandler
+            ioHandler.printRound(i+1);
             player1.doDraw();
             player2.doDraw();
         }
-        printWinner();
-    }
-
-    private void printWinner() {
-        System.out.println("Winner is: " + getWinner().getName()); //TODO OutPutHandler
+        ioHandler.printWinner(getWinner());
     }
 
     /**
