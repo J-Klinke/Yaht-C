@@ -19,6 +19,10 @@ public class Game {
             player1.doDraw();
             player2.doDraw();
         }
+        printWinner();
+    }
+
+    private void printWinner() {
         System.out.println("Winner is: " + getWinner().getName());
     }
 

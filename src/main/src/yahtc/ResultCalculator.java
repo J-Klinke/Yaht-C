@@ -143,7 +143,7 @@ public class ResultCalculator {
     }
 
     /**
-     * checks if all five dice in ResultCalculator.dice have the same value.
+     * checks if all five dice in ResultCalculator.dieValues have the same value.
      */
     private void checkForYahtzee() {
         for (int dieValue : dieValues) {
