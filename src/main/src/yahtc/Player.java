@@ -21,19 +21,18 @@ public class Player {
      */
     public void doDraw() {
         Draw draw = new Draw();
-        ArrayList<Result> player1results = draw.doDraw();
-        removeExistingResults(player1results);
-        if (chooseIfReroll()) {
-            Die[] fixedDice = chooseDiceToFix(draw.getDice());
-            player1results = draw.doFurtherDraws(fixedDice);
-            removeExistingResults(player1results);
+        ArrayList<Result> playerResults = draw.doDraw();
+        removeExistingResults(playerResults);
+        for (int i = 0; i < 2; i++) {
+            if (chooseIfRollAgain()) {
+                Die[] fixedDice = chooseDiceToFix(draw.getDice());
+                playerResults = draw.doFurtherDraws(fixedDice);
+                removeExistingResults(playerResults);
+            } else {
+                break;
+            }
         }
-        if (chooseIfReroll()) {
-            Die[] fixedDice = chooseDiceToFix(draw.getDice());
-            player1results = draw.doFurtherDraws(fixedDice);
-            removeExistingResults(player1results);
-        }
-        chooseResult(player1results);
+        chooseResult(playerResults);
         gameSheet.print();
     }
 
@@ -41,7 +40,7 @@ public class Player {
      * lets the player choose whether they want to roll th dice again.
      * @return their choice
      */
-    private boolean chooseIfReroll() {
+    private boolean chooseIfRollAgain() {
         return inputHandler.yesNoChooser();
     }
 

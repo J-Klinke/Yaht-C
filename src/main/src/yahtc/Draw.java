@@ -43,14 +43,11 @@ public class Draw {
     }
 
     /**
-     * replaces those die in Die.dice, which are also in fixeddice
-     * @param fixedDice Die[] with the dice which are not rolled
+     * rolls all dice in this draw.
      */
-    private void replaceFixedDice(Die[] fixedDice) {
-        for (int i = 0; i < dice.length; i++) {
-            if (fixedDice[i] != null) {
-                dice[i] = fixedDice[i];
-            }
+    private void rollDice() {
+        for (Die die : dice) {
+            die.rollDie();
         }
     }
 
@@ -75,11 +72,14 @@ public class Draw {
     }
 
     /**
-     * rolls all dice in this draw.
+     * replaces those die in Die.dice, which are also in fixedDice
+     * @param fixedDice Die[] with the dice which are not rolled
      */
-    private void rollDice() {
-        for (Die die : dice) {
-            die.rollDie();
+    private void replaceFixedDice(Die[] fixedDice) {
+        for (int i = 0; i < dice.length; i++) {
+            if (fixedDice[i] != null) {
+                dice[i] = fixedDice[i];
+            }
         }
     }
 
