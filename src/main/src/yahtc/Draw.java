@@ -15,8 +15,8 @@ public class Draw {
     }
 
     /**
-     * Draw's 'main' method.
-     * Rolls the dice, gets the possible results and prints both.
+     * Draw's 'main' method. Rolls the dice, gets the possible results.
+     * @return ArrayList of possible results
      */
     public ArrayList<Result> doDraw() {
         rollDice();
@@ -63,6 +63,7 @@ public class Draw {
 
     /**
      * calls a ResultCalculator, fills Draw.results with the possible results.
+     * @return ArrayList of possible results
      */
     private ArrayList<Result> getPossibleResults() {
         ResultCalculator resultCalculator = new ResultCalculator(dieValuesAsInt);
@@ -72,7 +73,7 @@ public class Draw {
     }
 
     /**
-     * replaces those die in Die.dice, which are also in fixedDice
+     * replaces those die in Die.dice, which are also in fixedDice.
      * @param fixedDice Die[] with the dice which are not rolled
      */
     private void replaceFixedDice(Die[] fixedDice) {

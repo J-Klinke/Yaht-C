@@ -1,7 +1,7 @@
 package yahtc;
 
 public class GameSheet {
-    public final Player player;
+    private final Player player;
 
     public GameSheet(Player player) {
         this.player = player;
@@ -13,11 +13,11 @@ public class GameSheet {
 
     @Override
     public String toString() {
-        return player.getName() +
-                "\n" +
-                player.getResultsFilled() +
-                "\n" +
-                player.calculateCurrentTotalScore() +
-                "\n";
+        return player.getName()
+                + "\n"
+                + player.getResultsFilled()
+                + "\n"
+                + player.calculateCurrentTotalScore()
+                + "\n";
     }
 }

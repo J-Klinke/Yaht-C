@@ -125,14 +125,6 @@ public abstract class Result implements Comparable<Result> {
         allResults.add(new Chance(0));
     }
 
-    public int getScore() {
-        return score;
-    }
-
-    public void setScore(int score) {
-        this.score = score;
-    }
-
     @Override
     public String toString() {
         return name + ": " + score + " points; ";
@@ -141,6 +133,14 @@ public abstract class Result implements Comparable<Result> {
     @Override
     public int compareTo(Result other) {
         return this.ordinal - other.ordinal;
+    }
+
+    public int getScore() {
+        return score;
+    }
+
+    public void setScore(int score) {
+        this.score = score;
     }
 
     public String getName() {

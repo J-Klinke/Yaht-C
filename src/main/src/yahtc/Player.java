@@ -56,7 +56,6 @@ public class Player {
             chosenResult = chooseEliminationResult();
         } else {
             chosenResult = inputHandler.resultChooser(results);
-
         }
         resultsFilled.add(chosenResult);
         sortResultsFilled();
@@ -116,6 +115,9 @@ public class Player {
         return score;
     }
 
+    /**
+     * sorts resultsFilled.
+     */
     public void sortResultsFilled() {
         Collections.sort(resultsFilled);
     }

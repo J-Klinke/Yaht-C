@@ -4,10 +4,13 @@ import java.util.ArrayList;
 import java.util.Scanner;
 
 public class BareBonesInputHandler implements InputHandler {
-    Scanner scanner = new Scanner(System.in);
+    private Scanner scanner = new Scanner(System.in);
 
 
-
+    /**
+     * handles a player's boolean decision.
+     * @return the decision
+     */
     public boolean yesNoChooser() {
         System.out.println("Type Yes or No.");
         while (true) {
@@ -24,6 +27,11 @@ public class BareBonesInputHandler implements InputHandler {
         }
     }
 
+    /**
+     * allows a player to pick dice.
+     * @param dice the Die[] to pick from
+     * @return a Die[] of the picked dice
+     */
     public Die[] dicePicker(Die[] dice) {
         System.out.println("Choose the dice by typing in their index divided by semicolons.");
         Die[] fixedDice = new Die[5];
@@ -46,6 +54,11 @@ public class BareBonesInputHandler implements InputHandler {
         return fixedDice;
     }
 
+    /**
+     * lets the player choose a result.
+     * @param results the ArrayList to choose from
+     * @return the chosen result
+     */
     @Override
     public Result resultChooser(ArrayList<Result> results) {
         System.out.println("choose a result:");
