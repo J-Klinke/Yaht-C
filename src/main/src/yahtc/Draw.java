@@ -22,15 +22,43 @@ public class Draw {
         rollDice();
         translateDiceValues();
         ArrayList<Result> results = getPossibleResults();
-        //System.out.println(dieValuesAsInt);
-        //System.out.println(printResults());
+        System.out.println(dieValuesAsInt);
+        System.out.println(printResults());
         return results;
+    }
+
+    /**
+     * version of doDraw with th possibility to not roll all dice.
+     * @param fixedDice Die[] with the dice which are not rolled
+     * @return possible results
+     */
+    public ArrayList<Result> doFurtherDraws(Die[] fixedDice) {
+        rollDice();
+        replaceFixedDice(fixedDice);
+        translateDiceValues();
+        ArrayList<Result> results = getPossibleResults();
+        System.out.println(dieValuesAsInt);
+        System.out.println(printResults());
+        return results;
+    }
+
+    /**
+     * replaces those die in Die.dice, which are also in fixeddice
+     * @param fixedDice Die[] with the dice which are not rolled
+     */
+    private void replaceFixedDice(Die[] fixedDice) {
+        for (int i = 0; i < dice.length; i++) {
+            if (fixedDice[i] != null) {
+                dice[i] = fixedDice[i];
+            }
+        }
     }
 
     /**
      * fills Draw.dieValues with each die's valueAsInt.
      */
     private void translateDiceValues() {
+        dieValuesAsInt.clear();
         for (Die die : dice) {
             dieValuesAsInt.add(die.getValueAsInt());
         }
@@ -66,5 +94,9 @@ public class Draw {
             stringBuilder.append(result.toString());
         }
         return stringBuilder.toString();
+    }
+
+    public Die[] getDice() {
+        return dice;
     }
 }

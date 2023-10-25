@@ -6,6 +6,8 @@ public class Player {
     private final GameSheet gameSheet;
     private final String name;
 
+    private final InputHandler inputHandler = new BareBonesInputHandler();
+
     private final ArrayList<Result> resultsFilled;
 
     public Player(String name) {
@@ -21,9 +23,26 @@ public class Player {
         Draw draw = new Draw();
         ArrayList<Result> player1results = draw.doDraw();
         removeExistingResults(player1results);
+        if (chooseIfReroll()) {
+            Die[] fixedDice = chooseDiceToFix(draw.getDice());
+            player1results = draw.doFurtherDraws(fixedDice);
+            removeExistingResults(player1results);
+        }
+        if (chooseIfReroll()) {
+            Die[] fixedDice = chooseDiceToFix(draw.getDice());
+            player1results = draw.doFurtherDraws(fixedDice);
+            removeExistingResults(player1results);
+        }
         chooseResult(player1results);
         gameSheet.print();
+    }
 
+    /**
+     * lets the player choose whether they want to roll th dice again.
+     * @return their choice
+     */
+    private boolean chooseIfReroll() {
+        return inputHandler.yesNoChooser();
     }
 
     /**
@@ -35,10 +54,19 @@ public class Player {
         if (results.isEmpty()) {
             chosenResult = chooseEliminationResult();
         } else {
-            chosenResult = results.get(0); //TODO implement
+            chosenResult = inputHandler.resultChooser(results);
 
         }
         resultsFilled.add(chosenResult);
+    }
+
+    /**
+     * lets the player choose which dice should not be rolled again.
+     * @param dice the current dice
+     * @return Die[] with the dice not to be rolled again
+     */
+    private Die[] chooseDiceToFix(Die[] dice) {
+        return inputHandler.diceChooser(dice);
     }
 
     /**
@@ -54,7 +82,7 @@ public class Player {
         for (Result result : eliminableResults) {
             result.setScore(0);
         }
-        chosenResult = eliminableResults.get(0); //TODO implement
+        chosenResult = inputHandler.resultChooser(eliminableResults);
         return chosenResult;
     }
 
