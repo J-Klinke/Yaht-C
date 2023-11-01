@@ -11,6 +11,8 @@ public class Player {
 
     private final ArrayList<Result> resultsFilled;
 
+    private boolean bonusCheckDone = false;
+
     public Player(String name, IOHandler ioHandler) {
         this.ioHandler = ioHandler;
         this.name = name;
@@ -36,6 +38,9 @@ public class Player {
             }
         }
         chooseResult(playerResults);
+        if (!bonusCheckDone) {
+            checkForBonus();
+        }
         ioHandler.printGameSheet(this);
     }
 
@@ -103,6 +108,37 @@ public class Player {
             }
         }
         results.removeAll(resultsToBeRemoved);
+    }
+
+    /**
+     * checks whether the player achieved the bonus.
+     */
+    private void checkForBonus() {
+        boolean isBonus = true;
+        for (int i = 0; i <= new Result.Sixes(0).getOrdinal(); i++) {
+            if (resultsFilled.get(i).getOrdinal() != Result.getAllResults().get(i).getOrdinal()) {
+                isBonus = false;
+            }
+        }
+        if (isBonus) {
+            bonusCheckDone = true;
+            if (calculateUpperScore() >= 63) {
+                resultsFilled.add(new Result.Bonus());
+            }
+        }
+        sortResultsFilled();
+    }
+
+    /**
+     * calculates the score of the upper part.
+     * @return the upper part's score.
+     */
+    private int calculateUpperScore() {
+        int upperScore = 0;
+        for (int i = 0; i < 6; i++) {
+            upperScore += resultsFilled.get(i).getScore();
+        }
+        return upperScore;
     }
 
     /**

@@ -58,16 +58,22 @@ public abstract class Result implements Comparable<Result> {
 
 
     }
+    public static class Bonus extends Result {
+        public Bonus() {
+            super(35, "Bonus", 7);
+        }
+    }
+
     public static class ThreeOfAKind extends Result {
         public ThreeOfAKind(int score) {
-            super(score, "Three of a Kind", 7);
+            super(score, "Three of a Kind", 8);
         }
 
 
     }
     public static class FourOfAKind extends Result {
         public FourOfAKind(int score) {
-            super(score, "Four of a Kind", 8);
+            super(score, "Four of a Kind", 9);
         }
 
 
@@ -76,7 +82,7 @@ public abstract class Result implements Comparable<Result> {
         private static final int FULL_HOUSE_SCORE = 25;
 
         public FullHouse() {
-            super(FULL_HOUSE_SCORE, "Full House", 9);
+            super(FULL_HOUSE_SCORE, "Full House", 10);
         }
 
     }
@@ -84,27 +90,27 @@ public abstract class Result implements Comparable<Result> {
         public static final int SMALL_STRAIGHT_SCORE = 30;
 
         public SmallStraight() {
-            super(SMALL_STRAIGHT_SCORE, "Small Straight", 10);
+            super(SMALL_STRAIGHT_SCORE, "Small Straight", 11);
         }
     }
     public static class LargeStraight extends Result {
         public static final int LARGE_STRAIGHT_SCORE = 40;
 
         public LargeStraight() {
-            super(LARGE_STRAIGHT_SCORE, "Large Straight", 11);
+            super(LARGE_STRAIGHT_SCORE, "Large Straight", 12);
         }
     }
     public static class YahtC extends Result {
         public static final int YAHT_C_SCORE = 50;
 
         public YahtC() {
-            super(YAHT_C_SCORE, "Yaht-C", 12);
+            super(YAHT_C_SCORE, "Yaht-C", 13);
         }
 
     }
     public static class Chance extends Result {
         public Chance(int score) {
-            super(score, "Chance", 13);
+            super(score, "Chance", 14);
         }
 
 
@@ -147,6 +153,10 @@ public abstract class Result implements Comparable<Result> {
         return this.name;
     }
 
+    public int getOrdinal() {
+        return ordinal;
+    }
+
     public static ArrayList<Result> getAllResults() {
         if (allResults.isEmpty()) {
             fillAllResults();
@@ -154,28 +164,3 @@ public abstract class Result implements Comparable<Result> {
         return allResults;
     }
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-

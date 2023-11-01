@@ -100,7 +100,7 @@ public class BareBonesIOHandler implements IOHandler {
                 |–––––––––––––|–––––|–––––––––––––––––|–––––|
                 | Upper Total |     | Chance          |     |
                 |–––––––––––––|–––––|–––––––––––––––––|–––––|
-                | Bonus?      |     | Lower Total     |     |
+                | Bonus       |     | Lower Total     |     |
                 |–––––––––––––|–––––|–––––––––––––––––|–––––|
                 | Upper Total |     | Total           |     |
                 |–––––––––––––|–––––|–––––––––––––––––|–––––|
@@ -109,7 +109,7 @@ public class BareBonesIOHandler implements IOHandler {
          */
         System.out.println(player.getName());
         System.out.println("–".repeat(player.getName().length()));
-        System.out.print("Filled results: ");
+        System.out.print("Filled ");
         printResults(player.getResultsFilled());
         System.out.println("Current Score: " + player.calculateCurrentTotalScore() + "\n");
     }
@@ -132,12 +132,17 @@ public class BareBonesIOHandler implements IOHandler {
     @Override
     public void printResults(ArrayList<Result> results) {
         System.out.print("Results: ");
-        for (int i = 0; i < results.size(); i++) {
-            if (i % 5 == 0) {
-                System.out.print("\n");
+        if (results.isEmpty()) {
+            System.out.print("[]");
+        } else {
+            for (int i = 0; i < results.size(); i++) {
+                if (i % 6 == 0 && i != 0) {
+                    System.out.print("\n");
+                }
+                System.out.print(results.get(i));
             }
-            System.out.print(results.get(i));
         }
+
         System.out.println();
     }
 
