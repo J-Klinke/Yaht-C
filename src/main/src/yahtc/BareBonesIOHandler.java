@@ -156,4 +156,9 @@ public class BareBonesIOHandler implements IOHandler {
         System.out.println("Enter 'roll' to roll the dice.");
         scanner.next();
     }
+
+    @Override
+    public void printBonusMessage() {
+        System.out.println("You achieved the bonus!");
+    }
 }

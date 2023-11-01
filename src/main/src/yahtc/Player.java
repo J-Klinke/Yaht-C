@@ -114,19 +114,22 @@ public class Player {
      * checks whether the player achieved the bonus.
      */
     private void checkForBonus() {
-        boolean isBonus = true;
-        for (int i = 0; i <= new Result.Sixes(0).getOrdinal(); i++) {
-            if (resultsFilled.get(i).getOrdinal() != Result.getAllResults().get(i).getOrdinal()) {
-                isBonus = false;
+        if (resultsFilled.size() > 6) {
+            boolean isBonus = true;
+            for (int i = 0; i < new Result.Sixes(0).getOrdinal(); i++) {
+                if (resultsFilled.get(i).getOrdinal() != Result.getAllResults().get(i).getOrdinal()) {
+                    isBonus = false;
+                }
             }
-        }
-        if (isBonus) {
-            bonusCheckDone = true;
-            if (calculateUpperScore() >= 63) {
-                resultsFilled.add(new Result.Bonus());
+            if (isBonus) {
+                bonusCheckDone = true;
+                if (calculateUpperScore() >= 63) {
+                    resultsFilled.add(new Result.Bonus());
+                    ioHandler.printBonusMessage();
+                }
             }
+            sortResultsFilled();
         }
-        sortResultsFilled();
     }
 
     /**

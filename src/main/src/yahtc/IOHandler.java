@@ -38,4 +38,6 @@ public interface IOHandler {
     void printEliminationMessage();
 
     void rollDice();
+
+    void printBonusMessage();
 }
