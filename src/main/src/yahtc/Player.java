@@ -4,7 +4,6 @@ import java.util.ArrayList;
 import java.util.Collections;
 
 public class Player {
-    private final GameSheet gameSheet;
     private final String name;
 
     private final IOHandler ioHandler;
@@ -16,7 +15,6 @@ public class Player {
     public Player(String name, IOHandler ioHandler) {
         this.ioHandler = ioHandler;
         this.name = name;
-        this.gameSheet = new GameSheet(this);
         this.resultsFilled = new ArrayList<>();
     }
 

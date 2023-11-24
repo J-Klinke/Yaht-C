@@ -3,7 +3,7 @@ package yahtc;
 import java.util.ArrayList;
 import java.util.Scanner;
 
-public class BareBonesIOHandler implements IOHandler {
+public class BareBonesIOHandler extends IOHandler {
     private Scanner scanner = new Scanner(System.in);
 
 
@@ -83,35 +83,15 @@ public class BareBonesIOHandler implements IOHandler {
 
     @Override
     public void printGameSheet(Player player) {
-        /*String gameSheet = """
-                | player name\s
-                |–––––––––––––|–––––|–––––––––––––––––|–––––|
-                | Ones        |     | Three of a Kind |     |
-                |–––––––––––––|–––––|–––––––––––––––––|–––––|
-                | Twos        |     | Four of a Kind  |     |
-                |–––––––––––––|–––––|–––––––––––––––––|–––––|
-                | Threes      |     | Full House      |     |
-                |–––––––––––––|–––––|–––––––––––––––––|–––––|
-                | Fours       |     | Small Straight  |     |
-                |–––––––––––––|–––––|–––––––––––––––––|–––––|
-                | Fives       |     | Large Straight  |     |
-                |–––––––––––––|–––––|–––––––––––––––––|–––––|
-                | Sixes       |     | Yaht-C          |     |
-                |–––––––––––––|–––––|–––––––––––––––––|–––––|
-                | Upper Total |     | Chance          |     |
-                |–––––––––––––|–––––|–––––––––––––––––|–––––|
-                | Bonus       |     | Lower Total     |     |
-                |–––––––––––––|–––––|–––––––––––––––––|–––––|
-                | Upper Total |     | Total           |     |
-                |–––––––––––––|–––––|–––––––––––––––––|–––––|
-                """;
+        GameSheet gameSheet = new BareBonesGameSheet(player);
+        gameSheet.updateResults();
+        System.out.println(gameSheet);
 
-         */
-        System.out.println(player.getName());
+        /*System.out.println(player.getName());
         System.out.println("–".repeat(player.getName().length()));
         System.out.print("Filled ");
         printResults(player.getResultsFilled());
-        System.out.println("Current Score: " + player.calculateCurrentTotalScore() + "\n");
+        System.out.println("Current Score: " + player.calculateCurrentTotalScore() + "\n");*/
     }
 
     @Override
